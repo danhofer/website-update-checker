@@ -1,0 +1,21 @@
+{
+  "name": "website-update-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "repack-zip"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.562.0",
+    "eslint": "^6.6.0",
+    "repack-zip": "^0.2.5"
+  },
+  "dependencies": {
+    "md5-file": "^4.0.0",
+    "request": "^2.88.0"
+  }
+}
