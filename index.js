@@ -105,9 +105,11 @@ exports.handler = async event => {
 
     const webPage = await getWebpage(url)
 
-    await writeFile(webPage, fileLocation)
-
-    const hash = await getHash(fileLocation)
+    let hash = ''
+    if (hashCompare) {
+        await writeFile(webPage, fileLocation)
+        hash = await getHash(fileLocation)
+    }
 
     const doesStringExist = stringCheck(webPage, searchString)
     const isHashSame = hashCheck(hashCompare, hash)
