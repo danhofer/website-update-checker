@@ -58,21 +58,19 @@ function hashCheck(comparisonHash, hashToCheck) {
     return false
 }
 
-async function sendNotification(stringBoolean, hashBoolean) {
+async function sendNotification(stringBoolean, hashBoolean, hash) {
     if (stringBoolean && hashBoolean) {
         console.log('No changes to website detected.')
         return
     }
 
-    let notification = `The website: ${url} has been modified.\n`
+    let notification = `The website has been modified: ${url}\n`
 
     if (!stringBoolean)
-        notification += `The string "${searchString}" was NOT found in the website!\n`
-    else
-        notification += `The string "${searchString}" was found in the website.\n`
+        notification += `The following search string was NOT found on the website: ${searchString}\n`
 
-    if (!hashBoolean) notification += `The website hash HAS changed!`
-    else notification += `The website hash has not changed.`
+    if (!hashBoolean)
+        notification += `The website hash HAS changed and is now: ${hash}`
 
     console.log(notification)
 
@@ -106,6 +104,7 @@ exports.handler = async event => {
     console.log(event)
 
     const webPage = await getWebpage(url)
+
     await writeFile(webPage, fileLocation)
 
     const hash = await getHash(fileLocation)
@@ -116,5 +115,5 @@ exports.handler = async event => {
     console.log(`doesStringExist: ${doesStringExist}`)
     console.log(`isHashSame: ${isHashSame}`)
 
-    await sendNotification(doesStringExist, isHashSame)
+    await sendNotification(doesStringExist, isHashSame, hash)
 }
