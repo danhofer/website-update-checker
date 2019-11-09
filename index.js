@@ -103,13 +103,18 @@ async function sendNotification(stringBoolean, hashBoolean, hash) {
 exports.handler = async event => {
     console.log(event)
 
+    let hash = ''
+
     const webPage = await getWebpage(url)
 
-    let hash = ''
+    if (searchString) console.log(`Search string provided: "${searchString}"`)
+    else console.log('No search string provided.')
+
     if (hashCompare) {
+        console.log(`Comparison hash provided: ${hashCompare}`)
         await writeFile(webPage, fileLocation)
         hash = await getHash(fileLocation)
-    }
+    } else console.log('No comparison hash provided.')
 
     const doesStringExist = stringCheck(webPage, searchString)
     const isHashSame = hashCheck(hashCompare, hash)
